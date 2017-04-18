@@ -5,10 +5,18 @@ import java.util.*;
 public class Grid extends Observable {
 	public enum Result {NONE, WIN, LOSE};
 	
+	// Grid of Locations
 	private Location[][] location;
+	
+	// Battleship length = width, so this works for both dimensions
 	private static final int GRIDSIZE = 10;
+	
+	// Array for the sizes of each individual ship; will have something to do with location.id
 	private static final int[] SHIPSIZES = {5, 4, 3, 3, 2};
+	
+	// How many ships you or the opponent have left
 	private int remainingShips = SHIPSIZES.length;
+	
 	private Random random;
 	
 	public Grid() {
