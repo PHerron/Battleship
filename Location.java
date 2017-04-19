@@ -11,19 +11,9 @@ public class Location {
 	public enum Type {EMPTY, SHIPHEAD, SHIPBODY};
 	public Type type;
 	
-	/**
-	 * This is the type of ship, or lack thereof, that is within the location
-	 * 0 is an empty location
-	 * 1-5 correspond to the 0-4 indices of the SHIPSIZES array in Grid.java
-	 * 1 is the Carrier
-	 * 2 is the Battleship
-	 * 3 is the Cruiser
-	 * 4 is the Submarine
-	 * 5 is the Destroyer
-	 * 
-	 * We included this to hopefully avoid adding another class for the ships,
-	 * but if it limits functionality, we may need to include Ship.java
-	 */
+	/*
+	* Differentiates ships from wach other to avoid collision on ship sinking detction
+	*/
 	private int id;
 	
 	// This indicates whether the location has been clicked, by either the player or the AI
@@ -36,7 +26,6 @@ public class Location {
 	}
 	
 	public void setId(int id) {
-		// if 0-numShips
 		this.id = id;
 	}
 	

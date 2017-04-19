@@ -37,9 +37,8 @@ public class Grid extends Observable {
 		// use isValidLocation()
 	}
 	
-	public boolean isValidLocation(int row, int col, 
-								   boolean vertical, int shipLength) {
-		return false;
+	public boolean isValidLocation(int row, int col, boolean vertical, int shipLength) {								
+		return vertical ? ((row+shipLength)<10) : ((col+shipLength)<10);
 	}
 	
 	public Result getResult() {
@@ -72,11 +71,7 @@ public class Grid extends Observable {
     }
 	
 	public boolean isHit(int row, int col) {
-		if(getLocation(row, col).isFiredOn() && 
-		   (getLocation(row, col).getId() != 0)) {
-			return true;
-		}
-		return false;
+		return (getLocation(row, col).isFiredOn() && (getLocation(row, col).getId() != 0)) 
 	}
 	
 	// for Observable
