@@ -4,46 +4,46 @@ import java.util.*;
 
 public class Grid extends Observable {
 	public enum Result {NONE, WIN, LOSE};
-	
+
 	// Grid of Locations
 	private Location[][] location;
-	
+
 	// Battleship length = width, so this works for both dimensions
 	private static final int GRIDSIZE = 10;
-	
+
 	// Array for the sizes of each individual ship; will have something to do with location.id
 	private static final int[] SHIPSIZES = {5, 4, 3, 3, 2};
-	
+
 	// How many ships you or the opponent have left
 	private int remainingShips = SHIPSIZES.length;
-	
+
 	private Random random;
-	
+
 	public Grid() {
 		location = new Location[GRIDSIZE][GRIDSIZE];
 		random = new Random();
-		
+
 		for(int i = 0; i < GRIDSIZE; i++){
 			for(int j = 0; j < GRIDSIZE; j++){
 				location[i][j] = new Location();
 			}
         }
-		
+
 		deployFleet();
 	}
-	
+
 	public void deployFleet() {
 		// TODO
 		// use isValidLocation()
 	}
-	
-	public boolean isValidLocation(int row, int col, boolean vertical, int shipLength) {								
+
+	public boolean isValidLocation(int row, int col, boolean vertical, int shipLength) {
 		return vertical ? ((row+shipLength)<10) : ((col+shipLength)<10);
 	}
-	
+
 	public Result getResult() {
 		// TODO
-		
+
 		int count = 0;
 		int mineCount = 0;
 		for(int i = 0; i < getHeight(); i++) {
@@ -65,20 +65,26 @@ public class Grid extends Observable {
 		if(count == mineCount) return Result.WIN;
         return Result.NONE;
     }
-	
+
 	public Location getLocation(int row, int col) {
 		return location[row][col];
     }
-	
+
 	public boolean isHit(int row, int col) {
-		return (getLocation(row, col).isFiredOn() && (getLocation(row, col).getId() != 0)) 
+		return (getLocation(row, col).isFiredOn() && (getLocation(row, col).getId() != 0))
 	}
-	
+
 	// for Observable
 	public void fireOn(int row, int col) {
 		// TODO
+		if(location[row][col].isFiredOn()) return;
+		else{
+			location[row][col].setFiredOn(true);
+		}
+		setChanged();
+		notifyObservers("TODO");
 	}
-	
+
 	// for Observable
 	public void checkSunkShip() {
 		// TODO
