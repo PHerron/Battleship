@@ -18,6 +18,8 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	private LogBox logbox;
 	private boolean isGameActive;
 	private Random random;
+	private int[] lastTurn;
+	private boolean lastTurnWasHit
 	
 	private class LogBox extends JPanel{
 		public JLabel[] moves;
@@ -107,8 +109,17 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	public void opponentTurn()
 	{
 		random = new Random();
-		if(isGameActive) 
-			grid.fireOn(random.nextInt(10), random.nextInt(10));
+		int row = random.nextInt(10);
+		int col = random.nextInt(10);
+		if(isGameActive && !grid[row][col].isFiredOn() && !lastTurnWasHit) {
+			grid.fireOn(row, col);
+			if(grid.isHit(row, col)) lastTurn = {row, col};
+		}
+		else if(isGameActive && grid[row][col].isFiredOn() && !lastTurnWasHit) opponentTurn();
+		else if(isGameActive && lastTurnWasHit) {
+			
+		}
+		
 	}
 	
 	public Point whereClicked(MouseEvent click)
