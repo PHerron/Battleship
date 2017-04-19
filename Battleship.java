@@ -17,6 +17,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	private JLabel[][] tile;
 	private LogBox logbox;
 	private boolean isGameActive;
+	private Random random;
 	
 	private class LogBox extends JPanel{
 		public JLabel[] moves;
@@ -100,6 +101,14 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 			JOptionPane.showMessageDialog(this,"You won! You sank all of your opponent's ships!","Game Over!",JOptionPane.PLAIN_MESSAGE);
 		}
 		
+		opponentTurn();
+	}
+	
+	public void opponentTurn()
+	{
+		random = new Random();
+		if(isGameActive) 
+			grid.fireOn(random.nextInt(10), random.nextInt(10));
 	}
 	
 	public Point whereClicked(MouseEvent click)
