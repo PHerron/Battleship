@@ -82,7 +82,7 @@ public class Grid extends Observable {
 			location[row][col].setFiredOn(true);
 		}
 		setChanged();
-		notifyObservers("TODO");
+		notifyObservers("TO-DO");
 	}
 
 	// for Observable
