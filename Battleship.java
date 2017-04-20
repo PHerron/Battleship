@@ -105,7 +105,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		}
 		else if(args[0].equals("shipSunk")
 		{
-			logbox.add("Ship of size "+Integer.parseInt(args[1]));
+			logbox.add("Ship of size "+Integer.parseInt(args[1])+" sank.");
 		}
 	}
 
@@ -114,7 +114,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	{
 		Point p = whereClicked(click);
 
-		//gui checks / changes
+		
 
 		repaint();
 
