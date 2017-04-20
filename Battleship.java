@@ -24,7 +24,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	private class LogBox extends JPanel{
 		public JLabel[] moves;
 		public int pointer;
-		public LogBox(){cd
+		public LogBox(){
 			moves = new JLabel[20];
 			setLayout(new GridLayout(20,1)); //20 high, 1 wide
 			pointer = 0;
@@ -98,7 +98,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	//TODO implement
 	public void update(Observable o, Object arg)
 	{
-		
+
 	}
 
 	//TODO finish
