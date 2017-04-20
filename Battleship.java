@@ -20,13 +20,10 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	private LogBox logbox;
 	private boolean isGameActive;
 	private Random random;
-<<<<<<< HEAD
-	
-=======
+
 	private int[] lastTurn;
 	private boolean lastTurnWasHit;
 
->>>>>>> origin/master
 	private class LogBox extends JPanel{
 		public JLabel[] moves;
 		public int pointer;
@@ -57,18 +54,16 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	*/
 	public Battleship()
 	{
-<<<<<<< HEAD
-		// Player
-=======
 
->>>>>>> origin/master
+		// Player
+
 		logbox = new LogBox();
 		grid = new Grid();
 		isGameActive = true;
 
 		grid.addObserver(this); //Observable interface
 
-		setLayout(new GridLayout(10,10); //Layout management
+		setLayout(new GridLayout(10,10)); //Layout management
 
 		//declaration of tile && initialisation of JLabels
 		tile = new JLabel[10][10];
@@ -85,7 +80,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 				tile[i][j].addMouseListener(this);
 				this.add(tile[i][j]);
 			}
-		
+
 		// Opponent
 		opGrid = new Grid();
 		opTile = new JLabel[10][10];
