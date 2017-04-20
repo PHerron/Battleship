@@ -13,7 +13,7 @@ public class Grid extends Observable {
     private static final int GRIDSIZE = 10;
 
     // Array for the sizes of each individual ship; will have something to do with location.id
-    private static final int[] SHIPSIZES = {5, 4, 3, 3, 2};
+    private static final int[] SHIPSIZES = {6, 5, 4, 4, 3};
 
     private Random random;
 
@@ -93,13 +93,14 @@ public class Grid extends Observable {
     }
 
     // for Observable
-    public void fireOn(int row, int col) {
-        if(location[row][col].isFiredOn()) return;
-        else{
-            location[row][col].setFiredOn(true);
-        }
+    public void fireOn(boolean player, int row, int col) {
+        if(!getLocation(row, col).isFiredOn()) 
+			location[row][col].setFiredOn(true);
         setChanged();
-        notifyObservers("firedOn:"+row+":"+col);
+		if(player)
+			notifyObservers("firedOnPlayer:"+row+":"+col);
+		else
+			notifyObservers("firedOnCPU:"+row+":"+col);
     }
 
     // for Observable

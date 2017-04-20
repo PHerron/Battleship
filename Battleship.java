@@ -60,15 +60,15 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 
 		grid.addObserver(this); //Observable interface
 
-		setLayout(new GridLayout(10,10)); //Layout management
+		setLayout(new GridLayout(21,10)); //Layout management
 
 		//declaration of tile && initialisation of JLabels
 		tile = new JLabel[10][10];
 		for(int i=0;i<10;i++)
 			for(int j=0;j<10;j++) {
 				tile[i][j] = new JLabel("??????",WATER_TILE,SwingConstants.CENTER);
+				tile[i][j].setIcon(WATER_TILE);
 				tile[i][j].setText("");
-				tile[i][j].setIcon(null);
 				tile[i][j].setName("cell:"+i+":"+j);
 				tile[i][j].setMinimumSize(new Dimension(50,50));
 				tile[i][j].setPreferredSize(new Dimension(50,50));
@@ -77,23 +77,42 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 				tile[i][j].addMouseListener(this);
 				this.add(tile[i][j]);
 			}
-
+		
+		JLabel playerLabel = new JLabel("^ Player");
+		playerLabel.setMinimumSize(new Dimension(50,50));
+		playerLabel.setPreferredSize(new Dimension(50,50));
+		playerLabel.setMaximumSize(new Dimension(50,50));
+		add(playerLabel);
+		JLabel[] blank = new JLabel[8];
+		for(int i = 0; i < 8; i++) {
+			blank[i] = new JLabel();
+			blank[i].setMinimumSize(new Dimension(50,50));
+			blank[i].setPreferredSize(new Dimension(50,50));
+			blank[i].setMaximumSize(new Dimension(50,50));
+			add(blank[i]);
+		}
+		JLabel opLabel = new JLabel("CPU v");
+		opLabel.setMinimumSize(new Dimension(50,50));
+		opLabel.setPreferredSize(new Dimension(50,50));
+		opLabel.setMaximumSize(new Dimension(50,50));
+		add(opLabel);
+		
 		// Opponent
 		opGrid = new Grid();
 		opTile = new JLabel[10][10];
 		for(int i=0;i<10;i++)
 			for(int j=0;j<10;j++) {
-				tile[i][j] = new JLabel("??????",WATER_TILE,SwingConstants.CENTER);
-				if(opGrid.getLocation(i, j).getID() != 0) 
-					tile[i][j].setIcon(SHIP_TILE);
-				tile[i][j].setText("");
-				tile[i][j].setIcon(null);
-				tile[i][j].setName("cell:"+i+":"+j);
-				tile[i][j].setMinimumSize(new Dimension(50,50));
-				tile[i][j].setPreferredSize(new Dimension(50,50));
-				tile[i][j].setMaximumSize(new Dimension(50,50));
-				tile[i][j].setBorder(BorderFactory.createRaisedBevelBorder());
-				this.add(tile[i][j]);
+				opTile[i][j] = new JLabel("??????",WATER_TILE,SwingConstants.CENTER);
+				opTile[i][j].setIcon(WATER_TILE);
+				if(opGrid.getLocation(i, j).getId() != 0) 
+					opTile[i][j].setIcon(SHIP_TILE);
+				opTile[i][j].setText("");
+				opTile[i][j].setName("cell:"+i+":"+j);
+				opTile[i][j].setMinimumSize(new Dimension(50,50));
+				opTile[i][j].setPreferredSize(new Dimension(50,50));
+				opTile[i][j].setMaximumSize(new Dimension(50,50));
+				opTile[i][j].setBorder(BorderFactory.createRaisedBevelBorder());
+				this.add(opTile[i][j]);
 			}
 	}
 
@@ -102,12 +121,19 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	{
 		String s = (String)arg;
 		String[] args = s.split(":");
-		if(args[0].equals("firedOn"))
+		if(args[0].equals("firedOnPlayer"))
 		{
-			if(grid.getLocation(Integer.parseInt(args[1]),Integer.parseInt(args[2])).getID() != 0)
+			if(grid.getLocation(Integer.parseInt(args[1]),Integer.parseInt(args[2])).getId() != 0)
 				tile[Integer.parseInt(args[1])][Integer.parseInt(args[2])].setIcon(HIT);
 			else
 				tile[Integer.parseInt(args[1])][Integer.parseInt(args[2])].setIcon(MISS);
+		}
+		else if(args[0].equals("firedOnCPU"))
+		{
+			if(opGrid.getLocation(Integer.parseInt(args[1]),Integer.parseInt(args[2])).getId() != 0)
+				opTile[Integer.parseInt(args[1])][Integer.parseInt(args[2])].setIcon(HIT);
+			else
+				opTile[Integer.parseInt(args[1])][Integer.parseInt(args[2])].setIcon(MISS);
 		}
 		else if(args[0].equals("shipSunk"))
 		{
@@ -122,22 +148,16 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 
 		if(click.getButton() == MouseEvent.BUTTON1)
 		{
-			grid.fireOn(p.y,p.x);
-			repaint();
-		}
-
-		repaint();
-
-		if(grid.getResult() == Grid.Result.NONE)
-			return;
-		else
-		{
-		isGameActive = false;
-		if(grid.getResult().equals(Grid.Result.LOSE))
-			JOptionPane.showMessageDialog(this,"You won! You sank all of your opponent's ships!","Game Over!",JOptionPane.PLAIN_MESSAGE);
-		}
-		if(click.getButton() == MouseEvent.BUTTON1)
+			grid.fireOn(true, p.y,p.x);
+			if(grid.getResult().equals(Grid.Result.LOSE)) {
+				isGameActive = false;
+				JOptionPane.showMessageDialog(this,"You won! You sank all of your opponent's ships!","Game Over!",JOptionPane.PLAIN_MESSAGE);
+			}
+			
 			opponentTurn();
+		}
+		
+		repaint();
 	}
 
 	public void opponentTurn()
@@ -145,9 +165,13 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		random = new Random();
 		int row = random.nextInt(10);
 		int col = random.nextInt(10);
+		System.out.println("Firing On");
+		System.out.println(isGameActive + " " + opGrid.getLocation(row,col).isFiredOn());
 		if(isGameActive && !opGrid.getLocation(row,col).isFiredOn()) {
-			opGrid.fireOn(row, col);
+			opGrid.fireOn(false, row, col);
+			System.out.println("Fired On");
 		}
+		System.out.println("Fire Complete");
 
 		if(opGrid.getResult() == Grid.Result.LOSE) {
 			isGameActive = false;
@@ -165,7 +189,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 			x = Integer.parseInt(args[1]);
 			y = Integer.parseInt(args[2]);
 			grid.getLocation(x,y); //validity check
-			return new Point(x,y);
+			return new Point(y,x);
 		}
 		catch(NullPointerException e) {throw new ArrayIndexOutOfBoundsException(x+","+y+" is not a valid index.");}
 	}
