@@ -130,7 +130,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		random = new Random();
 		int row = random.nextInt(10);
 		int col = random.nextInt(10);
-		if(isGameActive && !grid[row][col].isFiredOn()) {
+		if(isGameActive && !opGrid.getLocation().isFiredOn()) {
 			opGrid.fireOn(row, col);
 		}
 		
