@@ -9,8 +9,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 
 	//TODO Create actual icons
 	private final ImageIcon WATER_TILE = new ImageIcon(getClass().getClassLoader().getResource("water.png"));
-	private final ImageIcon SHIP_HEAD = new ImageIcon(getClass().getClassLoader().getResource("shiphead.png"));
-	private final ImageIcon SHIP_BODY = new ImageIcon(getClass().getClassLoader().getResource("shipbody.png"));
+	private final ImageIcon SHIP_TILE = new ImageIcon(getClass().getClassLoader().getResource("ship.png"));
 	private final ImageIcon HIT = new ImageIcon(getClass().getClassLoader().getResource("hit.png"));
 
 	private Grid grid;
@@ -98,7 +97,16 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	//TODO implement
 	public void update(Observable o, Object arg)
 	{
-
+		String s = (String)arg;
+		String[] args = s.split(":");
+		if(args[0].equals("firedOn")
+		{
+			tile[Integer.parseInt(args[1])][Integer.parseInt(args[2])].setIcon(HIT);
+		}
+		else if(args[0].equals("shipSunk")
+		{
+			logbox.add("Ship of size "+Integer.parseInt(args[1]));
+		}
 	}
 
 	//TODO finish

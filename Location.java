@@ -8,7 +8,7 @@
  */
 public class Location {
 	// This enum is mostly just to tell which graphic will be used for each tile
-	public enum Type {EMPTY, SHIPHEAD, SHIPBODY};
+	public enum Type {EMPTY, SHIP};
 	public Type type;
 	
 	/*
