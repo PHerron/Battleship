@@ -21,9 +21,6 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	private boolean isGameActive;
 	private Random random;
 
-	private int[] lastTurn;
-	private boolean lastTurnWasHit;
-
 	private class LogBox extends JPanel{
 		public JLabel[] moves;
 		public int pointer;
@@ -101,7 +98,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	//TODO implement
 	public void update(Observable o, Object arg)
 	{
-
+		
 	}
 
 	//TODO finish
