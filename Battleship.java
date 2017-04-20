@@ -111,15 +111,10 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		random = new Random();
 		int row = random.nextInt(10);
 		int col = random.nextInt(10);
-		if(isGameActive && !grid[row][col].isFiredOn() && !lastTurnWasHit) {
+		if(isGameActive && !grid[row][col].isFiredOn()) {
 			grid.fireOn(row, col);
 			if(grid.isHit(row, col)) lastTurn = {row, col};
 		}
-		else if(isGameActive && grid[row][col].isFiredOn() && !lastTurnWasHit) opponentTurn();
-		else if(isGameActive && lastTurnWasHit) {
-			
-		}
-		
 	}
 	
 	public Point whereClicked(MouseEvent click)
