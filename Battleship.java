@@ -113,15 +113,13 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 
 		repaint();
 
-		if(grid.getResult(p.x,p.y) == Grid.Result.NONE)
+		if(grid.getResult() == Grid.Result.NONE)
 			return;
 		else
 		{
 		isGameActive = false;
-		if(grid.getResult(p.x,p.y).equals(Grid.Result.LOSE))
+		if(grid.getResult().equals(Grid.Result.LOSE))
 			JOptionPane.showMessageDialog(this,"You Lost! All of your ships sank!","Game Over!",JOptionPane.ERROR_MESSAGE);
-		else if(grid.getResult(p.x,p.y) == Grid.Result.WIN)
-			JOptionPane.showMessageDialog(this,"You won! You sank all of your opponent's ships!","Game Over!",JOptionPane.PLAIN_MESSAGE);
 		}
 
 		opponentTurn();
@@ -134,6 +132,11 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		int col = random.nextInt(10);
 		if(isGameActive && !grid[row][col].isFiredOn()) {
 			opGrid.fireOn(row, col);
+		}
+		
+		if(opGrid.getResult() == Grid.Result.LOSE) {
+			isGameActive = false;
+			JOptionPane.showMessageDialog(this,"You won! You sank all of your opponent's ships!","Game Over!",JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
