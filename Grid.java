@@ -45,7 +45,7 @@ public class Grid extends Observable {
                 y = random.nextInt(10);
                 vertical = random.nextBoolean();
             }
-            while(!isValidLocation(y,x,vertical,SHIPSIZES[i]);
+            while(!isValidLocation(y,x,vertical,SHIPSIZES[i]));
 
             if(vertical)
                 for(int i=0;i<shipLength;i++)
@@ -86,7 +86,7 @@ public class Grid extends Observable {
     }
 
     public boolean isHit(int row, int col) {
-        return (getLocation(row, col).isFiredOn() && (getLocation(row, col).getId() != 0))
+        return (getLocation(row, col).isFiredOn() && (getLocation(row, col).getId() != 0));
     }
 
     // for Observable
@@ -101,7 +101,6 @@ public class Grid extends Observable {
 
     // for Observable
     public void checkSunkShip() {
-<<<<<<< HEAD
         for(int x=0;x<SHIPSIZES.length;x++)
         {
             boolean b = true;
@@ -115,8 +114,5 @@ public class Grid extends Observable {
                 notifyObservers("shipSunk:"+SHIPSIZES[x]);
             }
         }
-=======
-
->>>>>>> origin/master
     }
 }
