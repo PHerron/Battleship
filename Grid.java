@@ -33,12 +33,42 @@ public class Grid extends Observable {
 	}
 
 	public void deployFleet() {
-		// TODO
-		// use isValidLocation()
+		for(int i=0;i<SHIPSIZES.length;i++)
+		{
+			int x,y;
+			boolean vertical;
+			do
+			{
+				x = random.nextInt(10);
+				y = random.nextInt(10);
+				vertical = random.nextBoolean();
+			}
+			while(!isValidLocation(y,x,vertical,SHIPSIZES[i]);
+			
+			if(vertical)	
+			for(int i=0;i<shipLength;i++)
+				if(location[row+i][col].getId() != 0)
+					return false;
+			else
+				for(int i=0;i<shipLength;i++)
+					if(location[row][col+i].getId() != 0)
+						return false;
+				
+		}
 	}
 
 	public boolean isValidLocation(int row, int col, boolean vertical, int shipLength) {
-		return vertical ? ((row+shipLength)<10) : ((col+shipLength)<10);
+		if(!(vertical ? ((row+shipLength)<10) : ((col+shipLength)<10)))
+			return false;
+		if(vertical)	
+			for(int i=0;i<shipLength;i++)
+				if(location[row+i][col].getId() != 0)
+					return false;
+		else
+			for(int i=0;i<shipLength;i++)
+				if(location[row][col+i].getId() != 0)
+					return false;
+		return true;
 	}
 
 	public Result getResult() {
