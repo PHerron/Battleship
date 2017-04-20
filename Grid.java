@@ -46,28 +46,30 @@ public class Grid extends Observable {
                 y = random.nextInt(10);
                 vertical = random.nextBoolean();
             }
-            while(!isValidLocation(y,x,vertical,SHIPSIZES[i]));
+            while(!isValidLocation(y,x,vertical,SHIPSIZES[j]));
 
             if(vertical)
-                for(int i=0;i<shipLength;i++)
-                    location[row+i][col].setId(i);
+                for(int i=0;i<SHIPSIZES[j];i++)
+                    location[y+i][x].setId(i);
             else
-                for(int i=0;i<shipLength;i++)
-                    location[row][col+i].setId(i);
+                for(int i=0;i<SHIPSIZES[j];i++)
+                    location[y][x+i].setId(i);
         }
     }
 
     public boolean isValidLocation(int row, int col, boolean vertical, int shipLength) {
         if(!(vertical ? ((row+shipLength)<10) : ((col+shipLength)<10)))
             return false;
-        if(vertical)
+        if(vertical){
             for(int i=0;i<shipLength;i++)
                 if(location[row+i][col].getId() != 0)
                     return false;
-        else
+        }
+        else{
             for(int i=0;i<shipLength;i++)
                 if(location[row][col+i].getId() != 0)
                     return false;
+        }
         return true;
     }
 
@@ -107,7 +109,7 @@ public class Grid extends Observable {
             boolean b = true;
             for(int i=0;i<10;i++)
                 for(int j=0;j<10;j++)
-                    if(!location[i][j].isFiredOn && location[i][j].getId()==x)
+                    if(!location[i][j].isFiredOn() && location[i][j].getId()==x)
                         b = false;
             if(b)
             {
