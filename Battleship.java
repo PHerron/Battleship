@@ -99,11 +99,11 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	{
 		String s = (String)arg;
 		String[] args = s.split(":");
-		if(args[0].equals("firedOn")
+		if(args[0].equals("firedOn"));
 		{
 			tile[Integer.parseInt(args[1])][Integer.parseInt(args[2])].setIcon(HIT);
 		}
-		else if(args[0].equals("shipSunk")
+		else if(args[0].equals("shipSunk"));
 		{
 			logbox.add("Ship of size "+Integer.parseInt(args[1])+" sank.");
 		}
