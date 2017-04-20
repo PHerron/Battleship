@@ -6,13 +6,13 @@ import javax.swing.*;
 import java.util.*;
 
 public class Battleship extends JPanel implements MouseListener,Observer{
-	
+
 	//TODO Create actual icons
 	private final ImageIcon WATER_TILE = new ImageIcon(getClass().getClassLoader().getResource("water.png"));
 	private final ImageIcon SHIP_HEAD = new ImageIcon(getClass().getClassLoader().getResource("shiphead.png"));
 	private final ImageIcon SHIP_BODY = new ImageIcon(getClass().getClassLoader().getResource("shipbody.png"));
 	private final ImageIcon HIT = new ImageIcon(getClass().getClassLoader().getResource("hit.png"));
-	
+
 	private Grid grid;
 	private Grid opGrid;
 	private JLabel[][] tile;
@@ -20,7 +20,13 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	private LogBox logbox;
 	private boolean isGameActive;
 	private Random random;
+<<<<<<< HEAD
 	
+=======
+	private int[] lastTurn;
+	private boolean lastTurnWasHit;
+
+>>>>>>> origin/master
 	private class LogBox extends JPanel{
 		public JLabel[] moves;
 		public int pointer;
@@ -33,7 +39,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 			if(pointer<20)
 				moves[pointer++].setText(s);
 			else
-			{ 
+			{
 				for(int i=5,i<20,i++)
 					moves[i-5] = moves[i];
 				for(int i=15,i<20,i++)
@@ -44,22 +50,26 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 			repaint();
 		}
 	}
-	
-	
+
+
 	/*
 	* Create viewed game board (FRONTEND)
 	*/
 	public Battleship()
 	{
+<<<<<<< HEAD
 		// Player
+=======
+
+>>>>>>> origin/master
 		logbox = new LogBox();
 		grid = new Grid();
 		isGameActive = true;
-		
+
 		grid.addObserver(this); //Observable interface
-		
+
 		setLayout(new GridLayout(10,10); //Layout management
-		
+
 		//declaration of tile && initialisation of JLabels
 		tile = new JLabel[10][10];
 		for(int i=0;i<10;i++)
@@ -92,36 +102,36 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 				this.add(tile[i][j]);
 			}
 	}
-	
+
 	//TODO implement
 	public void update(Observable o, Object arg)
 	{
-		
+
 	}
-	
+
 	//TODO finish
 	public void mouseClicked(MouseEvent click)
 	{
 		Point p = whereClicked(click);
-		
+
 		//gui checks / changes
-		
+
 		repaint();
-		
+
 		if(grid.getResult(p.x,p.y) == Grid.Result.NONE)
 			return;
 		else
 		{
-		isGameActive = false;	
+		isGameActive = false;
 		if(grid.getResult(p.x,p.y).equals(Grid.Result.LOSE))
 			JOptionPane.showMessageDialog(this,"You Lost! All of your ships sank!","Game Over!",JOptionPane.ERROR_MESSAGE);
 		else if(grid.getResult(p.x,p.y) == Grid.Result.WIN)
 			JOptionPane.showMessageDialog(this,"You won! You sank all of your opponent's ships!","Game Over!",JOptionPane.PLAIN_MESSAGE);
 		}
-		
+
 		opponentTurn();
 	}
-	
+
 	public void opponentTurn()
 	{
 		random = new Random();
@@ -131,7 +141,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 			opGrid.fireOn(row, col);
 		}
 	}
-	
+
 	public Point whereClicked(MouseEvent click)
 	{
 		try{
@@ -144,14 +154,11 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		}
 		catch(NullPointerException e) {throw new ArrayIndexOutOfBoundsException(x+","+y+" is not a valid index.");}
 	}
-	
-	
+
+
 	//DO NOT IMPLEMENT
 	public void mousePressed(MouseEvent event) {}
     public void mouseReleased(MouseEvent event) {}
     public void mouseEntered(MouseEvent event) {}
     public void mouseExited(MouseEvent event) {}
 }
-
-
-
