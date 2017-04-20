@@ -21,7 +21,9 @@ public class Grid extends Observable {
     public Grid() {
         location = new Location[GRIDSIZE][GRIDSIZE];
         random = new Random();
-        shipAliveStatus = {true,true,true,true,true};
+        shipAliveStatus = new boolean[5];
+		for(boolean b:shipAliveStatus)
+			b = true;
 
         for(int i = 0; i < GRIDSIZE; i++){
             for(int j = 0; j < GRIDSIZE; j++){
