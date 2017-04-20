@@ -36,7 +36,7 @@ public class Grid extends Observable {
     }
 
     public void deployFleet() {
-        for(int j=1;j<=SHIPSIZES.length;j++)
+        for(int j=0;j<SHIPSIZES.length;j++)
         {
             int x,y;
             boolean vertical;
