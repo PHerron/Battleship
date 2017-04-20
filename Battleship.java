@@ -84,6 +84,8 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		for(int i=0;i<10;i++)
 			for(int j=0;j<10;j++) {
 				tile[i][j] = new JLabel("??????",WATER_TILE,SwingConstants.CENTER);
+				if(opGrid.getLocation(i, j).getID() != 0) 
+					tile[i][j].setIcon(SHIP_TILE);
 				tile[i][j].setText("");
 				tile[i][j].setIcon(null);
 				tile[i][j].setName("cell:"+i+":"+j);
@@ -102,7 +104,10 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		String[] args = s.split(":");
 		if(args[0].equals("firedOn"))
 		{
-			tile[Integer.parseInt(args[1])][Integer.parseInt(args[2])].setIcon(HIT);
+			if(grid.getLocation(Integer.parseInt(args[1]),Integer.parseInt(args[2])).getID() != 0)
+				tile[Integer.parseInt(args[1])][Integer.parseInt(args[2])].setIcon(HIT);
+			else
+				tile[Integer.parseInt(args[1])][Integer.parseInt(args[2])].setIcon(MISS);
 		}
 		else if(args[0].equals("shipSunk"))
 		{
@@ -115,7 +120,11 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	{
 		Point p = whereClicked(click);
 
-
+		if(click.getButton() == MouseEvent.BUTTON1)
+		{
+			grid.fireOn(p.y,p.x);
+			repaint();
+		}
 
 		repaint();
 
@@ -127,8 +136,8 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		if(grid.getResult().equals(Grid.Result.LOSE))
 			JOptionPane.showMessageDialog(this,"You won! You sank all of your opponent's ships!","Game Over!",JOptionPane.PLAIN_MESSAGE);
 		}
-
-		opponentTurn();
+		if(click.getButton() == MouseEvent.BUTTON1)
+			opponentTurn();
 	}
 
 	public void opponentTurn()
