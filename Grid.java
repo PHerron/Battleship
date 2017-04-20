@@ -33,7 +33,7 @@ public class Grid extends Observable {
 	}
 
 	public void deployFleet() {
-		for(int i=0;i<SHIPSIZES.length;i++)
+		for(int i=1;i<=SHIPSIZES.length;i++)
 		{
 			int x,y;
 			boolean vertical;
@@ -46,14 +46,11 @@ public class Grid extends Observable {
 			while(!isValidLocation(y,x,vertical,SHIPSIZES[i]);
 			
 			if(vertical)	
-			for(int i=0;i<shipLength;i++)
-				if(location[row+i][col].getId() != 0)
-					return false;
+				for(int i=0;i<shipLength;i++)
+					location[row+i][col].setId(i);
 			else
 				for(int i=0;i<shipLength;i++)
-					if(location[row][col+i].getId() != 0)
-						return false;
-				
+					location[row][col+i].setId(i);
 		}
 	}
 
