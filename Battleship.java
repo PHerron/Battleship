@@ -10,7 +10,8 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	//TODO Create actual icons
 	private final ImageIcon WATER_TILE = new ImageIcon(getClass().getClassLoader().getResource("water.png"));
 	private final ImageIcon SHIP_TILE = new ImageIcon(getClass().getClassLoader().getResource("ship.png"));
-	private final ImageIcon HIT = new ImageIcon(getClass().getClassLoader().getResource("hit.png"));
+	private final ImageIcon HIT = new ImageIcon(getClass().getClassLoader().getResource("hitship.png"));
+	private final ImageIcon MISS = new ImageIcon(getClass().getClassLoader().getResource("misswater.png"));
 
 	private Grid grid;
 	private Grid opGrid;
