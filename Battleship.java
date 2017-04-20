@@ -40,9 +40,9 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 				moves[pointer++].setText(s);
 			else
 			{
-				for(int i=5,i<20,i++)
+				for(int i=5;i<20;i++)
 					moves[i-5] = moves[i];
-				for(int i=15,i<20,i++)
+				for(int i=15;i<20;i++)
 					moves[i].setText("");
 				pointer = 15;
 				add(s);
