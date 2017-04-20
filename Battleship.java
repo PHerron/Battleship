@@ -24,7 +24,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	private class LogBox extends JPanel{
 		public JLabel[] moves;
 		public int pointer;
-		public LogBox(){
+		public LogBox(){cd
 			moves = new JLabel[20];
 			setLayout(new GridLayout(20,1)); //20 high, 1 wide
 			pointer = 0;
@@ -130,7 +130,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		if(isGameActive && !opGrid.getLocation().isFiredOn()) {
 			opGrid.fireOn(row, col);
 		}
-		
+
 		if(opGrid.getResult() == Grid.Result.LOSE) {
 			isGameActive = false;
 			JOptionPane.showMessageDialog(this,"You Lost! All of your ships sank!","Game Over!",JOptionPane.ERROR_MESSAGE);
@@ -139,11 +139,13 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 
 	public Point whereClicked(MouseEvent click)
 	{
+		int x;
+		int y;
 		try{
 			JLabel j = (JLabel)(event.getSource());
 			String[] args = j.getName().split(":");
-			int x = Integer.parseInt(args[1]);
-			int y = Integer.parseInt(args[2]);
+			x = Integer.parseInt(args[1]);
+			y = Integer.parseInt(args[2]);
 			grid.getLocation(x,y); //validity check
 			return new Point(x,y);
 		}
