@@ -69,28 +69,14 @@ public class Grid extends Observable {
 	}
 
 	public Result getResult() {
-		// TODO
-
-		int count = 0;
-		int mineCount = 0;
-		for(int i = 0; i < getHeight(); i++) {
-			for(int j = 0; j < getWidth(); j++) {
-				if(location[i][j].hasMine() && location[i][j].getType() == Location.Type.UNCOVERED) {
-					for(int k = 0; k < getHeight(); k++) {
-						for(int l = 0; l < getWidth(); l++) {
-							if(location[k][l].hasMine()) uncoverAt(k, l);
-						}
-					}
-					return Result.LOSE;
-				}
-				else if(location[i][j].getType() == Location.Type.COVERED) {
-					count++;
-					if(location[i][j].hasMine()) mineCount++;
+		for(int i = 0; i < 10(); i++) {
+			for(int j = 0; j < 10(); j++) {
+				if((location[i][j].getID != 0) && !location[i][j].isFiredOn()) {
+					return Result.NONE;
 				}
 			}
 		}
-		if(count == mineCount) return Result.WIN;
-        return Result.NONE;
+		return Result.LOSE;
     }
 
 	public Location getLocation(int row, int col) {
@@ -103,7 +89,6 @@ public class Grid extends Observable {
 
 	// for Observable
 	public void fireOn(int row, int col) {
-		// TODO
 		if(location[row][col].isFiredOn()) return;
 		else{
 			location[row][col].setFiredOn(true);
@@ -114,6 +99,6 @@ public class Grid extends Observable {
 
 	// for Observable
 	public void checkSunkShip() {
-		// TODO
+		
 	}
 }
