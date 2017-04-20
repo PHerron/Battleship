@@ -14,12 +14,12 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	private final ImageIcon HIT = new ImageIcon(getClass().getClassLoader().getResource("hit.png"));
 	
 	private Grid grid;
+	private Grid opGrid;
 	private JLabel[][] tile;
+	private JLabel[][] opTile;
 	private LogBox logbox;
 	private boolean isGameActive;
 	private Random random;
-	private int[] lastTurn;
-	private boolean lastTurnWasHit
 	
 	private class LogBox extends JPanel{
 		public JLabel[] moves;
@@ -51,7 +51,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 	*/
 	public Battleship()
 	{
-		
+		// Player
 		logbox = new LogBox();
 		grid = new Grid();
 		isGameActive = true;
@@ -73,6 +73,22 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 				tile[i][j].setMaximumSize(new Dimension(50,50));
 				tile[i][j].setBorder(BorderFactory.createRaisedBevelBorder());
 				tile[i][j].addMouseListener(this);
+				this.add(tile[i][j]);
+			}
+		
+		// Opponent
+		opGrid = new Grid();
+		opTile = new JLabel[10][10];
+		for(int i=0;i<10;i++)
+			for(int j=0;j<10;j++) {
+				tile[i][j] = new JLabel("??????",WATER_TILE,SwingConstants.CENTER);
+				tile[i][j].setText("");
+				tile[i][j].setIcon(null);
+				tile[i][j].setName("cell:"+i+":"+j);
+				tile[i][j].setMinimumSize(new Dimension(50,50));
+				tile[i][j].setPreferredSize(new Dimension(50,50));
+				tile[i][j].setMaximumSize(new Dimension(50,50));
+				tile[i][j].setBorder(BorderFactory.createRaisedBevelBorder());
 				this.add(tile[i][j]);
 			}
 	}
@@ -112,8 +128,7 @@ public class Battleship extends JPanel implements MouseListener,Observer{
 		int row = random.nextInt(10);
 		int col = random.nextInt(10);
 		if(isGameActive && !grid[row][col].isFiredOn()) {
-			grid.fireOn(row, col);
-			if(grid.isHit(row, col)) lastTurn = {row, col};
+			opGrid.fireOn(row, col);
 		}
 	}
 	
