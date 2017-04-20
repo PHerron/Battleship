@@ -71,7 +71,7 @@ public class Grid extends Observable {
 	public Result getResult() {
 		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 10; j++) {
-				if((location[i][j].getID != 0) && !location[i][j].isFiredOn()) {
+				if((location[i][j].getID() != 0) && !location[i][j].isFiredOn()) {
 					return Result.NONE;
 				}
 			}
